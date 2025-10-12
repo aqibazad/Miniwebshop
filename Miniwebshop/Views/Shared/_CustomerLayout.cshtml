@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Webshop</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f6fa;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 260px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .sidebar.collapsed {
+                width: 80px;
+            }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            padding: 0 15px 20px;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .toggle-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed .toggle-btn {
+            display: none;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Menu */
+        .menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar.collapsed .menu-item {
+            padding: 12px 0;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .menu-item:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: #fff;
+        }
+
+        .menu-item.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: #fff;
+            font-weight: 600;
+        }
+
+        .menu-item i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .menu-item span {
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed .menu-item span {
+            opacity: 0;
+            width: 0;
+        }
+
+        .menu-label {
+            padding: 20px 20px 10px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+        }
+
+        .sidebar.collapsed .menu-label {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 260px;
+            right: 0;
+            height: 70px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed ~ .navbar {
+            left: 80px;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #667eea;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: #636e72;
+        }
+
+        .logout-btn {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+            .logout-btn:hover {
+                background: #fdd;
+                border-color: #fbb;
+            }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 108px;
+            margin-top: 17px;
+            padding: 30px;
+            min-height: calc(100vh - 70px);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed ~ .main-content {
+            margin-left: 80px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-left: 260px;
+            padding: 20px 30px;
+            background: #fff;
+            border-top: 1px solid #e1e8ed;
+            text-align: center;
+            color: #636e72;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed ~ .footer {
+            margin-left: 80px;
+        }
+
+        /* Mobile Responsive */
+        @@media (max-width: 768px) {
+            .sidebar
+
+        {
+            transform: translateX(-100%);
+        }
+
+        .sidebar.mobile-open {
+            transform: translateX(0);
+        }
+
+        .sidebar.collapsed {
+            width: 260px;
+        }
+
+            .sidebar.collapsed .logo-text,
+            .sidebar.collapsed .menu-item span,
+            .sidebar.collapsed .menu-label {
+                opacity: 1;
+                width: auto;
+            }
+
+            .sidebar.collapsed .sidebar-header {
+                padding: 0 20px 20px;
+                justify-content: space-between;
+            }
+
+            .sidebar.collapsed .toggle-btn {
+                display: flex;
+            }
+
+        .navbar {
+            left: 0;
+        }
+
+        .sidebar.collapsed ~ .navbar {
+            left: 0;
+        }
+
+        .mobile-toggle {
+            display: block;
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+
+        .sidebar.collapsed ~ .main-content {
+            margin-left: 0;
+        }
+
+        .footer {
+            margin-left: 0;
+        }
+
+        .sidebar.collapsed ~ .footer {
+            margin-left: 0;
+        }
+
+        .user-details {
+            display: none;
+        }
+
+        .navbar {
+            padding: 0 15px;
+        }
+
+        .main-content {
+            padding: 20px 15px;
+        }
+
+        }
+
+        /* Overlay for mobile */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+            .overlay.active {
+                display: block;
+            }
+
+        @@media (max-width: 480px) {
+            .page-title
+
+        {
+            font-size: 16px;
+        }
+
+        .logout-btn span {
+            display: none;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="/Account/CustomerDashboard" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <span class="logo-text">Mini Webshop</span>
+            </a>
+            <button class="toggle-btn" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="menu">
+            <div class="menu-label">Main</div>
+            <a href="/Account/CustomerDashboard" class="menu-item active">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <div class="menu-label">Shopping</div>
+            <a href="/Catalog/Categories" class="menu-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Catalog</span>
+            </a>
+            <a href="/Cart/Index" class="menu-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Cart</span>
+            </a>
+            <a href="/Orders/MyOrders" class="menu-item">
+                <i class="fas fa-box"></i>
+                <span>My Orders</span>
+            </a>
+
+          
+        </nav>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <button class="mobile-toggle" id="mobileToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="navbar-content">
+            <h1 class="page-title">Dashboard</h1>
+            <div class="navbar-right">
+                <div class="user-info">
+                    <div class="user-avatar">C</div>
+                    <div class="user-details">
+                        <span class="user-name">Customer User</span>
+                        <span class="user-role">Customer</span>
+                    </div>
+                </div>
+                <a href="/Account/Login" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Mini Webshop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Sidebar toggle for desktop
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const overlay = document.getElementById('overlay');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
+
+        // Mobile menu toggle
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('mobile-open');
+            overlay.classList.remove('active');
+        });
+
+        // Set active menu item based on current URL
+        const currentPath = window.location.pathname;
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        menuItems.forEach(item => {
+            if (item.getAttribute('href') === currentPath) {
+                menuItems.forEach(mi => mi.classList.remove('active'));
+                item.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

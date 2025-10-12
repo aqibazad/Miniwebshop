@@ -1,0 +1,15 @@
+C:\Miniwebshop\Application\bin\Debug\net9.0\Application.deps.json
+C:\Miniwebshop\Application\bin\Debug\net9.0\Application.dll
+C:\Miniwebshop\Application\bin\Debug\net9.0\Application.pdb
+C:\Miniwebshop\Application\bin\Debug\net9.0\Domain.dll
+C:\Miniwebshop\Application\bin\Debug\net9.0\Domain.pdb
+C:\Miniwebshop\Application\obj\Debug\net9.0\Application.csproj.AssemblyReference.cache
+C:\Miniwebshop\Application\obj\Debug\net9.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Miniwebshop\Application\obj\Debug\net9.0\Application.AssemblyInfoInputs.cache
+C:\Miniwebshop\Application\obj\Debug\net9.0\Application.AssemblyInfo.cs
+C:\Miniwebshop\Application\obj\Debug\net9.0\Application.csproj.CoreCompileInputs.cache
+C:\Miniwebshop\Application\obj\Debug\net9.0\Applicat.44B5EDA2.Up2Date
+C:\Miniwebshop\Application\obj\Debug\net9.0\Application.dll
+C:\Miniwebshop\Application\obj\Debug\net9.0\refint\Application.dll
+C:\Miniwebshop\Application\obj\Debug\net9.0\Application.pdb
+C:\Miniwebshop\Application\obj\Debug\net9.0\ref\Application.dll

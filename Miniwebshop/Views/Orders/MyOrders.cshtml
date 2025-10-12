@@ -1,0 +1,262 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+@model List<Application.DTOs.OrderDto>
+
+<main class="main-content">
+    <div class="dashboard-container">
+        <h2 class="dashboard-title">My Orders</h2>
+        @if (Model.Any())
+        {
+            <div class="dashboard-grid">
+                @foreach (var order in Model)
+                {
+                    <div class="dashboard-card animate-card">
+                        <div class="card-header">
+                            <i class="fas fa-file-invoice"></i>
+                            <h3>Order #@order.Id</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric">
+                                <span class="metric-label">Order Date:</span>
+                                <span>@order.Date.ToString("d MMM yyyy")</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Total:</span>
+                                <span>@order.TotalPrice.ToString("C")</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Status:</span>
+                                <span>@order.Status</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/Orders/Details/@order.Id" class="card-link" style="color: #667eea; text-decoration: none; font-weight: 500; font-size: 14px;">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-cart text-center">
+                <i class="fas fa-shopping-bag" style="font-size: 48px; color: #636e72; margin-bottom: 20px;"></i>
+                <p class="metric-label" style="font-size: 16px; margin-bottom: 20px;">No orders found.</p>
+                <a href="/Catalog/Categories" class="btn btn-primary" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 500; color: #fff; transition: all 0.3s ease;">
+                    Continue Shopping <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        }
+    </div>
+
+    <style>
+        .main-content {
+            margin-left: 149px !important;
+            margin-top: 70px !important;
+            padding: 1px !important;
+            min-height: calc(100vh - 70px);
+            transition: all 0.3s ease;
+            margin-right: 31px !important;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .dashboard-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            }
+
+        .animate-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .dashboard-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .dashboard-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dashboard-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .dashboard-card:nth-child(n+4) {
+            animation-delay: 0.4s;
+        }
+
+        @@keyframes fadeInUp {
+            from
+
+        {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+            .card-header i {
+                font-size: 20px;
+            }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .metric-label {
+            color: #636e72;
+            font-weight: 500;
+        }
+
+        .card-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #e1e8ed;
+            text-align: right;
+        }
+
+        .card-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+            .card-link:hover {
+                color: #764ba2;
+            }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6dd8 0%, #6a4292 100%);
+            opacity: 0.9;
+        }
+
+        .empty-cart {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .empty-cart i {
+                font-size: 48px;
+                color: #636e72;
+                margin-bottom: 20px;
+            }
+
+        @@media (max-width: 991px) {
+            .dashboard-grid
+
+        {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .dashboard-grid
+
+        {
+            grid-template-columns: 1fr;
+        }
+
+        .dashboard-title {
+            font-size: 20px;
+        }
+
+        .card-header {
+            font-size: 16px;
+            padding: 15px;
+        }
+
+            .card-header i {
+                font-size: 18px;
+            }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .metric {
+            font-size: 13px;
+        }
+
+        .card-footer {
+            padding: 10px 15px;
+        }
+
+        .card-link {
+            font-size: 13px;
+        }
+
+        .btn-primary {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        .empty-cart {
+            padding: 20px;
+        }
+
+            .empty-cart i {
+                font-size: 36px;
+            }
+
+        }
+    </style>
+</main>

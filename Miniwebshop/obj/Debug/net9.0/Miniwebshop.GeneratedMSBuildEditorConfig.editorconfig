@@ -1,0 +1,153 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Miniwebshop
+build_property.RootNamespace = Miniwebshop
+build_property.ProjectDir = C:\Users\aqiba\source\repos\Miniwebshops\Miniwebshop\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\aqiba\source\repos\Miniwebshops\Miniwebshop
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Account/CustomerDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDdXN0b21lckRhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Account/profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxwcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/AddCategory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkQ2F0ZWdvcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/AddCustomer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkQ3VzdG9tZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/AddProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkUHJvZHVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/Categories.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2F0ZWdvcmllcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/Customers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3VzdG9tZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/EditCategory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdENhdGVnb3J5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/EditCustomer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdEN1c3RvbWVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/EditProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdFByb2R1Y3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/Orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cT3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Admin/Products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvZHVjdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Cart/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Catalog/Categories.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0YWxvZ1xDYXRlZ29yaWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Catalog/Products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0YWxvZ1xQcm9kdWN0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Catalog/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0YWxvZ1xTZWFyY2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Checkout/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tvdXRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Orders/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Orders/MyOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXE15T3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Shared/_CustomerLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DdXN0b21lckxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aqiba/source/repos/Miniwebshops/Miniwebshop/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-aa0c7ygqrc

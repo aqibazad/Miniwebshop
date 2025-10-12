@@ -1,0 +1,263 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model List<Application.DTOs.CartItemDto>
+
+<main class="main-content">
+    <div class="dashboard-container">
+        <h2 class="dashboard-title">Shopping Cart</h2>
+
+        @if (Model.Any())
+        {
+            <div class="dashboard-grid">
+                @foreach (var item in Model)
+                {
+                    <div class="dashboard-card animate-card">
+                        <div class="card-header">
+                            <i class="fas fa-cart-plus"></i>
+                            <h3>Product ID: @item.ProductId</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric">
+                                <span class="metric-label">Quantity</span>
+                                <form asp-action="Update" method="post" class="d-flex align-items-center">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                    <input name="quantity" type="number" min="1" value="@item.Quantity" class="form-control d-inline" style="width: 80px; margin-right: 10px; border-radius: 8px; font-size: 14px;" />
+                                    <button type="submit" class="card-link" style="background: none; border: none; padding: 0; color: #667eea;">
+                                        Update <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <form asp-action="Remove" method="post" style="display: inline;">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <button type="submit" class="card-link" style="background: none; border: none; padding: 0; color: #c33;">
+                                    Remove <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+            <br>
+            <div class="mt-4 text-right">
+                <a href="/Checkout/Index" class="btn btn-success" style="background: linear-gradient(135deg, #28a745 0%, #218838 100%); border: none; border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 500; color: #fff; transition: all 0.3s ease;">
+                    Proceed to Checkout <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="empty-cart text-center">
+                <i class="fas fa-shopping-cart" style="font-size: 48px; color: #636e72; margin-bottom: 20px;"></i>
+                <p class="metric-label" style="font-size: 16px; margin-bottom: 20px;">Your cart is empty.</p>
+                <a href="/Catalog/Categories" class="btn btn-primary" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 500; color: #fff; transition: all 0.3s ease;">
+                    Continue Shopping <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        }
+    </div>
+
+    <style>
+        .main-content {
+            margin-left: 149px !important;
+            margin-top: 70px !important;
+            padding: 1px !important;
+            min-height: calc(100vh - 70px);
+            transition: all 0.3s ease;
+            margin-right: 31px !important;
+        }
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .dashboard-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            }
+
+        .animate-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .dashboard-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .dashboard-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dashboard-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .dashboard-card:nth-child(n+4) {
+            animation-delay: 0.4s;
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+            .card-header i {
+                font-size: 20px;
+            }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .metric-label {
+            color: #636e72;
+        }
+
+        .card-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #e1e8ed;
+            text-align: right;
+        }
+
+        .card-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+            .card-link:hover {
+                color: #764ba2;
+            }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+            opacity: 0.9;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6dd8 0%, #6a4292 100%);
+            opacity: 0.9;
+        }
+
+        .empty-cart {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        @@media (max-width: 991px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @@media (max-width: 576px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-title {
+                font-size: 20px;
+            }
+
+            .card-header {
+                font-size: 16px;
+                padding: 15px;
+            }
+
+                .card-header i {
+                    font-size: 18px;
+                }
+
+            .card-body {
+                padding: 15px;
+            }
+
+            .metric {
+                font-size: 13px;
+            }
+
+            .card-footer {
+                padding: 10px 15px;
+            }
+
+            .card-link {
+                font-size: 13px;
+            }
+
+            .form-control {
+                width: 60px !important;
+                font-size: 13px;
+            }
+
+            .btn-success, .btn-primary {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .empty-cart {
+                padding: 20px;
+            }
+
+                .empty-cart i {
+                    font-size: 36px;
+                }
+        }
+    </style>
+</main>

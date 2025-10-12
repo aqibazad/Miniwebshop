@@ -1,0 +1,157 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model List<Application.DTOs.OrderDto>
+
+<style>
+    /* Orders Specific Styles */
+    .orders-header {
+        margin-bottom: 30px;
+    }
+
+        .orders-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+
+        .orders-header p {
+            color: #636e72;
+            font-size: 14px;
+        }
+
+    .orders-card {
+        background: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .orders-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+    .orders-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .orders-table th,
+        .orders-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #f5f6fa;
+        }
+
+        .orders-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .orders-table td {
+            color: #2d3436;
+            font-size: 14px;
+        }
+
+        .orders-table tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+    .no-orders {
+        background: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        color: #636e72;
+        font-size: 14px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    @@media (max-width: 768px) {
+        .orders-table
+
+    {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .orders-header h1 {
+        font-size: 24px;
+    }
+
+    .orders-table th,
+    .orders-table td {
+        min-width: 120px;
+    }
+
+    }
+</style>
+
+<div class="orders-header">
+    <h1>Manage Orders</h1>
+    <p>View and manage all orders in your store</p>
+</div>
+
+<div class="orders-card">
+    @if (Model.Any())
+    {
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
+                    <th>Shipping Address</th>
+                    <th>Total Price</th>
+                    <th>Items</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.Date.ToString("g")</td>
+                        <td>Customer Name Placeholder</td> <!-- Update with actual customer name logic -->
+                        <td>@order.Status</td>
+                        <td>@order.ShippingAddress</td>
+                        <td>@order.TotalPrice.ToString("C")</td>
+                        <td>
+                            @foreach (var item in order.Items)
+                            {
+                                <div>
+                                    Product: @item.ProductName (Category: @item.CategoryName),
+                                    Quantity: @item.Quantity,
+                                    Price: @item.Price.ToString("C")
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="no-orders">
+            <p>No orders found.</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,12 @@
+C:\Miniwebshop\Domain\bin\Debug\net9.0\Domain.deps.json
+C:\Miniwebshop\Domain\bin\Debug\net9.0\Domain.dll
+C:\Miniwebshop\Domain\bin\Debug\net9.0\Domain.pdb
+C:\Miniwebshop\Domain\obj\Debug\net9.0\Domain.csproj.AssemblyReference.cache
+C:\Miniwebshop\Domain\obj\Debug\net9.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Miniwebshop\Domain\obj\Debug\net9.0\Domain.AssemblyInfoInputs.cache
+C:\Miniwebshop\Domain\obj\Debug\net9.0\Domain.AssemblyInfo.cs
+C:\Miniwebshop\Domain\obj\Debug\net9.0\Domain.csproj.CoreCompileInputs.cache
+C:\Miniwebshop\Domain\obj\Debug\net9.0\Domain.dll
+C:\Miniwebshop\Domain\obj\Debug\net9.0\refint\Domain.dll
+C:\Miniwebshop\Domain\obj\Debug\net9.0\Domain.pdb
+C:\Miniwebshop\Domain\obj\Debug\net9.0\ref\Domain.dll

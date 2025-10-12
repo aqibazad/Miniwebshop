@@ -1,0 +1,43 @@
+﻿
+@model List<Application.DTOs.ProductDto>
+<div class="row">
+    <div class="col-12">
+        <h1>Search Results for "@ViewBag.Keyword"</h1>
+        <form asp-action="Search" method="get" class="mb-3">
+            <div class="input-group">
+                <input name="keyword" class="form-control" value="@ViewBag.Keyword" placeholder="Search products..." />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Price.ToString("C")</p>
+                            <p class="card-text">@product.ShortDescription</p>
+                            <form asp-controller="Cart" asp-action="Add" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item @(ViewBag.Page <= 1 ? "disabled" : "")">
+                    <a class="page-link" href="?keyword=@ViewBag.Keyword&page=@(ViewBag.Page - 1)">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?keyword=@ViewBag.Keyword&page=@(ViewBag.Page + 1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

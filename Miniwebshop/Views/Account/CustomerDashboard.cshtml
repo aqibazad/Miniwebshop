@@ -1,0 +1,219 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+@model Application.DTOs.CustomerDashboardViewModel
+<main class="main-content">
+    <div class="dashboard-container">
+        <h2 class="dashboard-title">Welcome, @Model.UserProfile.Name!</h2>
+
+        <div class="dashboard-grid">
+            <!-- Order Summary Card -->
+            <div class="dashboard-card animate-card">
+                <div class="card-header">
+                    <i class="fas fa-box-open"></i>
+                    <h3>Browse Catalog</h3>
+                </div>
+                <div class="card-body">
+                    <div class="metric">
+                        <span class="metric-label">Total Orders</span>
+                        <span class="metric-value">@Model.OrderStats.TotalOrders</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/Catalog/Categories" class="card-link">Browse Catalog <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Recent Orders Card -->
+            <div class="dashboard-card animate-card">
+                <div class="card-header">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>View Cart</h3>
+                </div>
+                <div class="card-body">
+                    <div class="metric">
+                        <span class="metric-label">Average Order Value</span>
+                        <span class="metric-value">@Model.OrderStats.AverageOrderValue.ToString("F2")</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/Cart/Index" class="card-link">View Cart <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Profile Status Card -->
+            <div class="dashboard-card animate-card">
+                <div class="card-header">
+                    <i class="fas fa-user-check"></i>
+                    <h3>My Orders</h3>
+                </div>
+                <div class="card-body">
+                   
+                    <div class="metric">
+                        <span class="metric-label">Total Spent</span>
+                        <span class="metric-value">@Model.OrderStats.TotalSpent.ToString("F2")</span>
+                    </div>
+                   
+                    
+                </div>
+                <div class="card-footer">
+                    <a href="/Orders/MyOrders" class="card-link">My Orders <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Shopping Stats Card -->
+            <div class="dashboard-card animate-card">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Edit Profile</h3>
+                </div>
+                <div class="card-body">
+                    <div class="metric">
+                        <span class="metric-label">Pending Orders</span>
+                        <span class="metric-value">@Model.OrderStats.PendingOrders</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/Account/Profile" class="card-link">Edit Profile <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .dashboard-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            }
+
+        .animate-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .dashboard-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .dashboard-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dashboard-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .dashboard-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        @@keyframes fadeInUp {
+            from
+
+        {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+            .card-header i {
+                font-size: 20px;
+            }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .metric-label {
+            color: #636e72;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: #2d3436;
+            font-size: 16px;
+        }
+
+        .card-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #e1e8ed;
+            text-align: right;
+        }
+
+        .card-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+            .card-link:hover {
+                color: #764ba2;
+            }
+
+        @@media (max-width: 768px) {
+            .dashboard-grid
+
+        {
+            grid-template-columns: 1fr;
+        }
+
+        .dashboard-title {
+            font-size: 20px;
+        }
+
+        }
+    </style>
+</main>
