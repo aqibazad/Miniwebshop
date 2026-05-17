@@ -1,0 +1,787 @@
+@model Miniwebshop.Models.StudentAdmissionViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Admission Form</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+            animation: moveShape 20s infinite alternate;
+        }
+
+        .shape:nth-child(1) { width: 300px; height: 300px; top: -100px; left: -100px; animation-duration: 15s; }
+        .shape:nth-child(2) { width: 200px; height: 200px; top: 50%; right: -50px; animation-duration: 18s; animation-delay: 2s; }
+        .shape:nth-child(3) { width: 250px; height: 250px; bottom: -80px; left: 30%; animation-duration: 22s; animation-delay: 4s; }
+
+        @@keyframes moveShape {
+            0%   { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(360deg); }
+        }
+
+        /* Card */
+        .admission-card {
+            position: relative;
+            z-index: 10;
+            width: 680px;
+            max-width: 96%;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @@keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 28px 30px 22px;
+            text-align: center;
+        }
+
+        .header-icon {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 14px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @@keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+            50%       { transform: scale(1.05); box-shadow: 0 0 0 14px rgba(255,255,255,0); }
+        }
+
+        .header-icon i { font-size: 30px; color: #fff; }
+
+        .card-header h1 { color: #fff; font-size: 24px; font-weight: 700; margin-bottom: 5px; }
+        .card-header p  { color: rgba(255,255,255,0.88); font-size: 13px; }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            border-bottom: 2px solid #e8e8f0;
+            background: #fafafa;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px 10px;
+            background: none;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .tab-btn.active { color: #667eea; }
+        .tab-btn.active::after { transform: scaleX(1); }
+        .tab-btn.completed { color: #28a745; }
+        .tab-btn.completed::after { background: #28a745; transform: scaleX(1); }
+
+        .step-badge {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ddd;
+            color: #888;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active .step-badge   { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+        .tab-btn.completed .step-badge { background: #28a745; color: #fff; }
+
+        /* Tab Panels */
+        .tab-panel { display: none; padding: 28px 30px 10px; }
+        .tab-panel.active { display: block; }
+
+        /* Form Fields */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-row.single { grid-template-columns: 1fr; }
+
+        .input-group { margin-bottom: 18px; }
+
+        .input-group label {
+            display: block;
+            color: #333;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .input-group label .required-star { color: #e53e3e; margin-left: 2px; }
+
+        .input-field { position: relative; }
+
+        .input-field input,
+        .input-field select,
+        .input-field textarea {
+            width: 100%;
+            padding: 11px 14px 11px 43px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        .input-field select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+        .input-field textarea { min-height: 80px; resize: vertical; padding-top: 12px; }
+
+        .input-field input:focus,
+        .input-field select:focus,
+        .input-field textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(102,126,234,0.1);
+        }
+
+        .input-field .field-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        .input-field textarea ~ .field-icon { top: 14px; transform: none; }
+
+        .field-hint { font-size: 11px; color: #888; margin-top: 5px; }
+
+        .text-danger {
+            font-size: 12px;
+            color: #dc3545;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Guardian type info box */
+        .guardian-info {
+            background: #f0f4ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            color: #4c51bf;
+            display: none;
+        }
+
+        .guardian-info.visible { display: flex; align-items: flex-start; gap: 10px; }
+        .guardian-info i { margin-top: 2px; flex-shrink: 0; }
+
+        /* Review panel */
+        .review-section { margin-bottom: 22px; }
+
+        .review-section h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .review-item { background: #f8f9fa; border-radius: 8px; padding: 10px 14px; }
+
+        .review-item .r-label {
+            font-size: 11px;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .review-item .r-value { font-size: 13px; color: #333; font-weight: 500; word-break: break-all; }
+
+        .review-divider { height: 1px; background: #eee; margin: 16px 0; }
+
+        /* Navigation Buttons */
+        .tab-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px 28px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 11px 28px;
+            border-radius: 10px;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #555;
+        }
+
+        .btn-secondary:hover { background: #e0e0e0; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(102,126,234,0.4); }
+        .btn-primary:active { transform: translateY(0); }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            color: #fff;
+        }
+
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(40,167,69,0.4); }
+
+        /* Progress indicator */
+        .progress-bar-wrap {
+            background: #eee;
+            height: 4px;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.4s ease;
+            width: 33%;
+        }
+
+        /* Responsive */
+        @@media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+            .review-grid { grid-template-columns: 1fr; }
+            .tab-btn span.tab-label { display: none; }
+            .admission-card { border-radius: 14px; }
+            .tab-panel { padding: 22px 18px 8px; }
+            .tab-actions { padding: 16px 18px 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="admission-card">
+        <!-- Header -->
+        <div class="card-header">
+            <div class="header-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1>Student Admission Form</h1>
+            <p>Please fill in all required details carefully</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-wrap">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button type="button" class="tab-btn active" data-tab="tab-student">
+                <span class="step-badge">1</span>
+                <span class="tab-label">Student Info</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="tab-guardian">
+                <span class="step-badge">2</span>
+                <span class="tab-label">Parent / Guardian</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="tab-review">
+                <span class="step-badge">3</span>
+                <span class="tab-label">Review & Submit</span>
+            </button>
+        </div>
+
+        <!-- Form -->
+        <form asp-action="Index" method="post" id="admissionForm" novalidate>
+            @Html.AntiForgeryToken()
+
+            <!-- Tab 1: Student Information -->
+            <div class="tab-panel active" id="tab-student">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label asp-for="StudentName">Student Full Name <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <input asp-for="StudentName" type="text" placeholder="e.g. Muhammad Ali" />
+                            <i class="fas fa-user-graduate field-icon"></i>
+                        </div>
+                        <span asp-validation-for="StudentName" class="text-danger"></span>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="BFormNumber">B-Form Number <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <input asp-for="BFormNumber" type="text" placeholder="12345-1234567-1" />
+                            <i class="fas fa-id-card field-icon"></i>
+                        </div>
+                        <small class="field-hint">Format: 12345-1234567-1</small>
+                        <span asp-validation-for="BFormNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label asp-for="Age">Age <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <input asp-for="Age" type="number" min="3" max="25" placeholder="e.g. 10" />
+                            <i class="fas fa-calendar-alt field-icon"></i>
+                        </div>
+                        <small class="field-hint">Age must be between 3 and 25</small>
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="BloodGroup">Blood Group <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <select asp-for="BloodGroup">
+                                <option value="">-- Select Blood Group --</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                            <i class="fas fa-tint field-icon"></i>
+                        </div>
+                        <span asp-validation-for="BloodGroup" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Parent / Guardian Information -->
+            <div class="tab-panel" id="tab-guardian">
+                <!-- Guardian Type first -->
+                <div class="form-row single">
+                    <div class="input-group">
+                        <label asp-for="GuardianType">Guardian Type <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <select asp-for="GuardianType" id="guardianTypeSelect">
+                                <option value="">-- Select Guardian Type --</option>
+                                <option value="Father">Father</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Legal Guardian">Legal Guardian</option>
+                            </select>
+                            <i class="fas fa-user-shield field-icon"></i>
+                        </div>
+                        <span asp-validation-for="GuardianType" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div id="guardianInfoBox" class="guardian-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span id="guardianInfoText"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label asp-for="GuardianName">Guardian Full Name <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <input asp-for="GuardianName" type="text" placeholder="e.g. Muhammad Usman" />
+                            <i class="fas fa-user field-icon"></i>
+                        </div>
+                        <span asp-validation-for="GuardianName" class="text-danger"></span>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="GuardianEmail">Email Address <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <input asp-for="GuardianEmail" type="email" placeholder="parent@example.com" />
+                            <i class="fas fa-envelope field-icon"></i>
+                        </div>
+                        <span asp-validation-for="GuardianEmail" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label asp-for="PhoneNumber">Phone Number <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <input asp-for="PhoneNumber" type="tel" placeholder="03001234567" />
+                            <i class="fas fa-phone field-icon"></i>
+                        </div>
+                        <small class="field-hint">Pakistani mobile number (e.g. 03001234567)</small>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="GuardianCnic">CNIC Number <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <input asp-for="GuardianCnic" type="text" placeholder="12345-1234567-1" />
+                            <i class="fas fa-id-badge field-icon"></i>
+                        </div>
+                        <small class="field-hint">Format: 12345-1234567-1</small>
+                        <span asp-validation-for="GuardianCnic" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label asp-for="CnicFrontDetails">CNIC Front Details <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <textarea asp-for="CnicFrontDetails" placeholder="Name, DOB, and address as printed on the CNIC front side"></textarea>
+                            <i class="fas fa-id-card-alt field-icon"></i>
+                        </div>
+                        <span asp-validation-for="CnicFrontDetails" class="text-danger"></span>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="CnicBackDetails">CNIC Back Details <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <textarea asp-for="CnicBackDetails" placeholder="Expiry date, religion, and other details from CNIC back side"></textarea>
+                            <i class="fas fa-id-card-alt field-icon"></i>
+                        </div>
+                        <span asp-validation-for="CnicBackDetails" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row single">
+                    <div class="input-group">
+                        <label asp-for="GuardianAddress">Home Address <span class="required-star">*</span></label>
+                        <div class="input-field">
+                            <textarea asp-for="GuardianAddress" placeholder="House No., Street, Area, City, Province"></textarea>
+                            <i class="fas fa-map-marker-alt field-icon"></i>
+                        </div>
+                        <span asp-validation-for="GuardianAddress" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Review & Submit -->
+            <div class="tab-panel" id="tab-review">
+                <div class="review-section">
+                    <h3><i class="fas fa-user-graduate"></i> Student Information</h3>
+                    <div class="review-grid">
+                        <div class="review-item">
+                            <div class="r-label">Student Name</div>
+                            <div class="r-value" id="rv-studentName">—</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="r-label">B-Form Number</div>
+                            <div class="r-value" id="rv-bform">—</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="r-label">Age</div>
+                            <div class="r-value" id="rv-age">—</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="r-label">Blood Group</div>
+                            <div class="r-value" id="rv-bloodGroup">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-divider"></div>
+
+                <div class="review-section">
+                    <h3><i class="fas fa-user-shield"></i> Parent / Guardian Information</h3>
+                    <div class="review-grid">
+                        <div class="review-item">
+                            <div class="r-label">Guardian Type</div>
+                            <div class="r-value" id="rv-guardianType">—</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="r-label">Guardian Name</div>
+                            <div class="r-value" id="rv-guardianName">—</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="r-label">Email</div>
+                            <div class="r-value" id="rv-email">—</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="r-label">Phone</div>
+                            <div class="r-value" id="rv-phone">—</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="r-label">CNIC</div>
+                            <div class="r-value" id="rv-cnic">—</div>
+                        </div>
+                        <div class="review-item" style="grid-column: 1 / -1;">
+                            <div class="r-label">Home Address</div>
+                            <div class="r-value" id="rv-address">—</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="tab-actions">
+                <button type="button" class="btn btn-secondary" id="btnPrev" style="visibility:hidden;">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <button type="button" class="btn btn-primary" id="btnNext">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+                <button type="submit" class="btn btn-success" id="btnSubmit" style="display:none;">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        (function () {
+            const tabs = ['tab-student', 'tab-guardian', 'tab-review'];
+            let currentTab = 0;
+
+            const progressWidths = ['33%', '66%', '100%'];
+
+            const guardianMessages = {
+                'Father':          'Please provide the father\'s personal details below. All fields are mandatory as per Pakistan admission requirements.',
+                'Mother':          'Please provide the mother\'s personal details below. All fields are mandatory as per Pakistan admission requirements.',
+                'Legal Guardian':  'Please provide the legal guardian\'s personal details below. All fields are mandatory as per Pakistan admission requirements.'
+            };
+
+            // Tab field selectors per step (for inline validation before advancing)
+            const tabFields = {
+                0: ['#StudentName', '#BFormNumber', '#Age', '#BloodGroup'],
+                1: ['#GuardianType', '#GuardianName', '#GuardianEmail', '#PhoneNumber', '#GuardianCnic', '#CnicFrontDetails', '#CnicBackDetails', '#GuardianAddress']
+            };
+
+            function getTabBtns() { return document.querySelectorAll('.tab-btn'); }
+
+            function showTab(index) {
+                tabs.forEach((id, i) => {
+                    const panel = document.getElementById(id);
+                    panel.classList.toggle('active', i === index);
+                });
+
+                getTabBtns().forEach((btn, i) => {
+                    btn.classList.remove('active');
+                    if (i < index) btn.classList.add('completed');
+                    else btn.classList.remove('completed');
+                    if (i === index) btn.classList.add('active');
+                });
+
+                document.getElementById('progressBar').style.width = progressWidths[index];
+
+                const btnPrev = document.getElementById('btnPrev');
+                const btnNext = document.getElementById('btnNext');
+                const btnSubmit = document.getElementById('btnSubmit');
+
+                btnPrev.style.visibility = index === 0 ? 'hidden' : 'visible';
+                btnNext.style.display     = index < tabs.length - 1 ? 'inline-flex' : 'none';
+                btnSubmit.style.display   = index === tabs.length - 1 ? 'inline-flex' : 'none';
+
+                if (index === tabs.length - 1) populateReview();
+            }
+
+            function validateStep(stepIndex) {
+                const form = document.getElementById('admissionForm');
+                const fields = tabFields[stepIndex];
+                if (!fields) return true;
+                let valid = true;
+                fields.forEach(function (selector) {
+                    const el = form.querySelector(selector);
+                    if (!el) return;
+                    // trigger jquery-validate on each field
+                    const $el = $(el);
+                    if ($el.valid && !$el.valid()) valid = false;
+                });
+                return valid;
+            }
+
+            function populateReview() {
+                const get = (id) => {
+                    const el = document.getElementById(id);
+                    return el ? (el.value || '—') : '—';
+                };
+                const setText = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = val || '—';
+                };
+
+                setText('rv-studentName',   get('StudentName'));
+                setText('rv-bform',         get('BFormNumber'));
+                setText('rv-age',           get('Age'));
+                setText('rv-bloodGroup',    get('BloodGroup'));
+                setText('rv-guardianType',  get('GuardianType'));
+                setText('rv-guardianName',  get('GuardianName'));
+                setText('rv-email',         get('GuardianEmail'));
+                setText('rv-phone',         get('PhoneNumber'));
+                setText('rv-cnic',          get('GuardianCnic'));
+                setText('rv-address',       get('GuardianAddress'));
+            }
+
+            // Guardian type info box
+            document.getElementById('guardianTypeSelect').addEventListener('change', function () {
+                const box  = document.getElementById('guardianInfoBox');
+                const text = document.getElementById('guardianInfoText');
+                if (this.value && guardianMessages[this.value]) {
+                    text.textContent = guardianMessages[this.value];
+                    box.classList.add('visible');
+                } else {
+                    box.classList.remove('visible');
+                }
+            });
+
+            // Next button
+            document.getElementById('btnNext').addEventListener('click', function () {
+                if (currentTab < tabs.length - 1) {
+                    if (!validateStep(currentTab)) return;
+                    currentTab++;
+                    showTab(currentTab);
+                }
+            });
+
+            // Prev button
+            document.getElementById('btnPrev').addEventListener('click', function () {
+                if (currentTab > 0) {
+                    currentTab--;
+                    showTab(currentTab);
+                }
+            });
+
+            // Tab header click (allow backward navigation freely; forward requires validation)
+            getTabBtns().forEach(function (btn, idx) {
+                btn.addEventListener('click', function () {
+                    if (idx < currentTab) {
+                        currentTab = idx;
+                        showTab(currentTab);
+                    } else if (idx > currentTab) {
+                        // validate all steps up to target
+                        for (let s = currentTab; s < idx; s++) {
+                            if (!validateStep(s)) return;
+                        }
+                        currentTab = idx;
+                        showTab(currentTab);
+                    }
+                });
+            });
+
+            // Server-side validation: if model invalid on return, jump to first tab with errors
+            @{
+                var hasErrors = !ViewData.ModelState.IsValid;
+            }
+            @if (hasErrors)
+            {
+                <text>
+                // If server returned with errors, trigger jquery-validate to show them
+                $(function () {
+                    $('#admissionForm').valid();
+                });
+                </text>
+            }
+
+            showTab(currentTab);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Submitted</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            padding: 40px 20px;
+        }
+
+        .success-card {
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @@keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .check-circle {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #28a745, #218838);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            animation: popIn 0.5s 0.3s both;
+        }
+
+        @@keyframes popIn {
+            0%   { transform: scale(0); opacity: 0; }
+            70%  { transform: scale(1.15); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .check-circle i { font-size: 40px; color: #fff; }
+
+        h1 { font-size: 26px; font-weight: 700; color: #222; margin-bottom: 10px; }
+
+        .subtitle { font-size: 14px; color: #666; margin-bottom: 28px; line-height: 1.6; }
+
+        .detail-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 18px 22px;
+            text-align: left;
+            margin-bottom: 28px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-row:last-child { border-bottom: none; }
+
+        .detail-row .d-label { color: #888; font-weight: 600; }
+        .detail-row .d-value { color: #333; font-weight: 500; }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(102,126,234,0.4); }
+    </style>
+</head>
+<body>
+    <div class="success-card">
+        <div class="check-circle">
+            <i class="fas fa-check"></i>
+        </div>
+        <h1>Application Submitted!</h1>
+        <p class="subtitle">
+            Thank you for submitting the student admission form.<br>
+            Your application has been received and will be reviewed shortly.
+        </p>
+
+        @if (TempData["AdmissionStudentName"] != null)
+        {
+            <div class="detail-box">
+                <div class="detail-row">
+                    <span class="d-label">Student Name</span>
+                    <span class="d-value">@TempData["AdmissionStudentName"]</span>
+                </div>
+                <div class="detail-row">
+                    <span class="d-label">B-Form Number</span>
+                    <span class="d-value">@TempData["AdmissionBForm"]</span>
+                </div>
+                <div class="detail-row">
+                    <span class="d-label">Age</span>
+                    <span class="d-value">@TempData["AdmissionAge"]</span>
+                </div>
+                <div class="detail-row">
+                    <span class="d-label">Blood Group</span>
+                    <span class="d-value">@TempData["AdmissionBloodGroup"]</span>
+                </div>
+                <div class="detail-row">
+                    <span class="d-label">Guardian Type</span>
+                    <span class="d-value">@TempData["AdmissionGuardianType"]</span>
+                </div>
+                <div class="detail-row">
+                    <span class="d-label">Guardian Name</span>
+                    <span class="d-value">@TempData["AdmissionGuardianName"]</span>
+                </div>
+                <div class="detail-row">
+                    <span class="d-label">Contact</span>
+                    <span class="d-value">@TempData["AdmissionPhone"]</span>
+                </div>
+            </div>
+        }
+
+        <a href="/StudentAdmission" class="btn-back">
+            <i class="fas fa-plus-circle"></i> Submit Another Application
+        </a>
+    </div>
+</body>
+</html>
